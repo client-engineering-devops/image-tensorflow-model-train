@@ -11,6 +11,6 @@ Container image is used in the tekton pipeline to build a [Kubeflow](https://www
 
 ## Build Usage
 
-``
+```
 docker exec kf-builder bash -c "./build-script.sh"
 ```
