@@ -1,16 +1,35 @@
-# Kubeflow Model Build Image 
+# kubeflow-mnist
 
-Container image is used in the tekton pipeline to build a [Kubeflow](https://www.kubeflow.org/) model.
+## Running Locally
 
-## Software Installed:
-*   build-essentials
-*   python
-*   [Anaconda](https://www.anaconda.com/)
-*   [Tensor Flow](https://www.tensorflow.org/)
-*   [Kubeflow](https://www.kubeflow.org)
+Install the Conda environment:
 
-## Build Usage
-
+```sh
+conda env create -f environment.yml
 ```
-docker exec kf-builder bash -c "./build-script.sh"
+
+Then run training:
+
+```sh
+% python preprocessing.py --data_dir data
+% python train.py --data_dir data --model_path export
 ```
+
+## Building the image
+docker build -t k1 .
+
+## Run the image
+docker run --name kubeflow -v containers:/var/lib/containers -it --rm k1 
+
+
+## Exec build-script
+docker exec kubeflow sh -c ./build-script.sh
+
+## Tensorflow Serving
+
+docker run -t --rm -p 8501:8501 \
+    -v "$PWD/export:/models/mnist" \
+    -e MODEL_NAME=mnist \
+    tensorflow/serving:2.4.2
+
+asx
