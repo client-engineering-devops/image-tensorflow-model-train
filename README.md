@@ -1,29 +1,20 @@
-# kubeflow-mnist
-
-## Running Locally
-
-Install the Conda environment:
-
-```sh
-conda env create -f environment.yml
-```
-
-Then run training:
-
-```sh
-% python preprocessing.py --data_dir data
-% python train.py --data_dir data --model_path export
-```
+# mnist
 
 ## Building the image
-docker build -t k1 .
+docker build -t quay.io/j0hnniewa1ker/mnist  . 
 
 ## Run the image
-docker run --name kubeflow -v containers:/var/lib/containers -it --rm k1 
+docker run --name mnist1 -v containers:/var/lib/containers --rm -it quay.io/j0hnniewa1ker/mnist
 
+## Copy Files into container
+docker cp environment.yml  mnist1:/tmp/
+docker cp preprocessing.py  mnist1:/tmp/
+docker cp train.py  mnist1:/tmp/
+docker cp constants.py  mnist1:/tmp/
+docker cp build-script.sh mnist1:/tmp/
 
 ## Exec build-script
-docker exec kubeflow sh -c ./build-script.sh
+docker exec mnist1 sh -c ./build-script.sh
 
 ## Tensorflow Serving
 
