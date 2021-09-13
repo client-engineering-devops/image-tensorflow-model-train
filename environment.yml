@@ -1,4 +1,4 @@
-name: kubeflow-mnist
+name: mnist
 channels:
     - conda-forge
     - defaults

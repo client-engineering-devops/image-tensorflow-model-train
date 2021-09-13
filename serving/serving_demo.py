@@ -35,7 +35,7 @@ def servedemo((data_dir: str):
 
     headers = {"content-type": "application/json"}
     data = json.dumps({"signature_name": "serving_default", "instances": test_images[0:3].tolist()})
-    json_response = requests.post('http://localhost:8501/v1/models/kubeflow-mnist:predict', data=data, headers=headers)
+    json_response = requests.post('http://localhost:8501/v1/models/mnist:predict', data=data, headers=headers)
     predictions = json.loads(json_response.text)['predictions']
 
     print(f'Predictions: {predictions}')

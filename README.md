@@ -16,6 +16,9 @@ docker cp build-script.sh mnist1:/tmp/
 ## Exec build-script
 docker exec mnist1 sh -c ./build-script.sh
 
+## Push up the image
+docker push quay.io/j0hnniewa1ker/mnist
+
 ## Tensorflow Serving
 
 docker run -t --rm -p 8501:8501 \
