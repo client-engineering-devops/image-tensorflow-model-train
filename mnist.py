@@ -51,7 +51,7 @@ with open('/tmp/test_labels.pickle', 'rb') as f:
 # Evaluation
 test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
 
-model_dir = '/root/kubeflow-mnist/'
+model_dir = '/root/mnist/'
 # Save model
 tf.saved_model.save(model, model_dir)
 
