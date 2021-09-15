@@ -69,7 +69,7 @@ git status
 oc sync model-build --dev
 oc adm policy add-scc-to-user privileged  -z pipeline 
 echo $githubtoken | pbcopy
-oc pipeline --tekton --pipeline tensorflow-model --param scan-image=false lint-dockerfile=false  health-endpoint=/ https://github.com/${githubaccount}/image-kubeflow-model-build.git
+oc pipeline --tekton --pipeline tensorflow-model --param scan-image=false lint-dockerfile=false  health-endpoint=/ "https://github.com/${githubaccount}/image-kubeflow-model-build.git"
 tkn pr logs -f <pipelinerun>
 curl <artfactory url> -O
 tar -tvf mnist.tar.gz
