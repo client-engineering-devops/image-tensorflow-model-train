@@ -2,7 +2,7 @@
 # Setup tekton pipeline for this repo
 
 ## dependencies
-image: quay.io/ibmtechgarage/tensorflow-model-build 
+image: quay.io/ibmtechgarage/tensorflow-model-train 
 
 ## prerequisite
      
@@ -16,7 +16,7 @@ read githubaccount
 # create githubtoken variable
 read -s githubtoken
 ```
-- fork [image-kubeflow-model-build](https://github.com/itg-devops/image-kubeflow-model-build.git)
+- fork [image-kubeflow-model-train](https://github.com/itg-devops/image-tensorflow-model-train.git)
 
 
 ### Tekton
@@ -48,13 +48,14 @@ curl -sfL get.cloudnativetoolkit.dev | sh -
 
 ### Repos
 ```
-git clone "https://github.com/${githubaccount}/image-kubeflow-model-build.git"
+git clone "https://github.com/${githubaccount}/image-tensorflow-model-train.git"
 git clone "https://github.com/itg-devops/ibm-garage-tekton-tasks.git"
 ```
 
 ## Apply the pipeline and tasks to tools project
 ```
 cd ibm-garage-tekton-tasks
+git checkout model-pipeline
 oc status #check that what project you are in 
 oc project tools
 
@@ -62,14 +63,14 @@ oc apply -f tasks/12-train-tensorflow-model-push.yaml
 oc apply -f pipelines/tensorflow-model-pipeline.yaml
 ```
 
-## Sync and pipeline a `model-build` 
+## Sync and pipeline a `tensorflow-model` 
 ```
-cd ../image-kubeflow-model-build
+cd ../image-tensorflow-model-train
 git status
-oc sync model-build --dev
+oc sync tensorflow-model --dev
 oc adm policy add-scc-to-user privileged  -z pipeline 
 echo $githubtoken | pbcopy
-oc pipeline --tekton --pipeline tensorflow-model --param scan-image=false lint-dockerfile=false  health-endpoint=/ "https://github.com/${githubaccount}/image-kubeflow-model-build.git"
+oc pipeline --tekton --pipeline tensorflow-model --param scan-image=false lint-dockerfile=false  health-endpoint=/ 
 tkn pr logs -f <pipelinerun>
 curl <artfactory url> -O
 tar -tvf mnist.tar.gz
