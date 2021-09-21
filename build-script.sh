@@ -11,7 +11,7 @@ python preprocessing.py --data_dir=/root/data
 # Train
 python train.py --data_dir=/root/data 
 
-# path from /workspace/mnist/output.txt 
-export MNIST_PATH=$(cat /workspace/mnist/output.txt) && \
-   tar -czvf /var/lib/containers/mnist.tar.gz $MNIST_PATH
+# tar model to /var/lib/containers
+tar -czvf /var/lib/containers/mnist.tar.gz -C /workspace mnist
+
 
