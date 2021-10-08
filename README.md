@@ -16,6 +16,7 @@ git clone https://github.com/itg-devops/tensorflow-mnist-model.git
 ```
 docker run --name tensorflow-mnist -v containers:/var/lib/containers --rm -it quay.io/ibmtechgarage/tensorflow-model-train
 ```
+- If you are only running the pre-build image skip to `Copy Files into container` step.
 ## Building this image
 When building this image it's nice to tag it so it's easy to publish to your quay.io account.
 
@@ -49,6 +50,7 @@ docker cp build-script.sh tensorflow-mnist:/tmp/
 docker exec tensorflow-mnist sh -c ./build-script.sh
 ```
 ## Push up the image
+- This step only for building this image and you want to push to your Quay account.
 ```
 docker push quay.io/${quayusername}/tensorflow-model-train
 ```
